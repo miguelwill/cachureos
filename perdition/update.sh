@@ -2,10 +2,9 @@
 
 cd /etc/perdition
 
+#actualiza archivo "popmap.gdbm.db" con el contenido de archivo "popmap"
 makegdbm popmap.gdbm.db < popmap
 
+#reinicio servicio perdition para actualizacion de cambios
 /etc/init.d/perdition restart
 
-rsync /etc/perdition/ -hva --progress -e ssh root@perdition2:/etc/perdition/
-
-ssh root@perdition2 "/etc/init.d/perdition restart"
