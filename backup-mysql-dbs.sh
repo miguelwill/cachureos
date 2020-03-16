@@ -3,7 +3,7 @@
 DIR=/var/backups/db
 DATE=`date +%H`
 PASS="password-root-o-similar"
-EXCLUDE="Database|information_schema|performance_schema"
+EXCLUDE="Database|_schema"
 #obtiene lista de bases de datos
 DB=`echo "show databases;" | mysql -uroot -p$PASS|egrep -v $EXCLUDE`
 
@@ -18,6 +18,6 @@ cd $DIR
 for i in $DB;
 do
         FILE=$i-$DATE.sql
-        $NICE        mysqldump  --triggers  -K -R -uroot -p$PASS $i | $NICE bzip2 -f > $FILE.bz2
+        $NICE        mysqldump  --triggers  -K -R -uroot -p$PASS $i | $NICE bzip2 -c > $FILE.bz2
         sleep 1
 done
